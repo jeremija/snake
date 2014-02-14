@@ -5,8 +5,8 @@ Classic snake game written in javascript using `knockout.js` and `require.js`. T
 
 Click [here for a preview](http://steinerize.com/snake).
 
-Install
--------
+Cloning and setting up
+----------------------
 
 Prerequisites: [bower](http://bower.io/) and a HTTP server of your choice. In this example `http-server` available via [npm](https://www.npmjs.org/) will be used.
 
