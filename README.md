@@ -21,12 +21,12 @@ npm install -g http-server
 http-server
 ```
 
-Now you should be able to navigate to `http://localhost:8080/src/index.html` in your browser.
+Now you should be able to navigate to [http://localhost:8080/src/index.html](http://localhost:8080/src/index.html) in your browser.
 
 Testing
 -------
 
-Follow the install guide, open your browser and navigate to `http://localhost:8080/test/test.html`.
+Follow the install guide, open your browser and navigate to [http://localhost:8080/test/test.html](http://localhost:8080/test/test.html).
 
 Building
 --------
