@@ -1,14 +1,14 @@
 Snake
 =====
 
-Classic snake game written in javascript using `knockout.js` and `require.js`. Tested on Chrome 32.
+Classic snake game written in javascript using [knockout.js](http://knockoutjs.com) and [require.js](http://requirejs.org). Tested on Chrome 32.
 
 Click [here for a preview](http://steinerize.com/snake).
 
 Cloning and setting up
 ----------------------
 
-Prerequisites: [bower](http://bower.io/) and a HTTP server of your choice. In this example `http-server` available via [npm](https://www.npmjs.org/) will be used.
+Prerequisites: [bower](http://bower.io/) and a HTTP server of your choice. In this example [http-server](https://www.npmjs.org/package/http-server) available via [npm](https://www.npmjs.org/) will be used.
 
 ```bash
 # clone the repository
