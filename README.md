@@ -8,7 +8,7 @@ Click [here for a preview](http://steinerize.com/snake).
 Install
 -------
 
-Prerequisites: `bower` and a HTTP server of your choice. In this example `http-server` available via `npm` will be used.
+Prerequisites: (bower)[http://bower.io/] and a HTTP server of your choice. In this example `http-server` available via (npm)[https://www.npmjs.org/] will be used.
 
 ```bash
 # clone the repository
