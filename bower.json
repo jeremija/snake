@@ -1,0 +1,26 @@
+{
+  "name": "snake",
+  "version": "0.0.0",
+  "authors": [
+    "jeremija <jerko.steiner@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.10",
+    "extendable.js": "~0.0.3",
+    "knockout.js": "~3.0.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "expect": "~0.2.0",
+    "almond": "~0.2.9"
+  }
+}

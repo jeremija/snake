@@ -1,0 +1,62 @@
+#game {
+	display: none;
+}
+
+#game.ready {
+	display: block;
+}
+
+#game .snake-area {
+	border: 5px solid blue;
+	margin: 0 auto;
+}
+
+#game .snake {
+	background-color: #666;
+}
+
+#game .snake:first-child {
+	background-color: #000;
+	z-index: 1;
+}
+
+#game .food {
+	background-color: red;
+}
+
+#game .status {
+	text-align: center;
+	font-family: sans-serif;
+}
+
+#config {
+	font-family: sans-serif;
+}
+
+.text-center {
+	text-align: center;
+}
+
+#config .hidden {
+	display: none;
+}
+
+#config .configuration-form {
+	position: fixed;
+	z-index: 999;
+
+	left: 50%;
+	margin-left: -175px;
+	top: 80px;
+
+	width: 350px;
+}
+
+#config .configuration-form fieldset {
+	background-color: white;
+}
+
+#config .configuration-form label {
+	display: inline-block;
+	width: 120px;
+}

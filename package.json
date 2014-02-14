@@ -1,0 +1,8 @@
+{
+  "name": "snake",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "requirejs": "~2.1.10"
+  }
+}

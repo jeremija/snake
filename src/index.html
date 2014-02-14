@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Snake!</title>
+
+	<!-- SCRIPT START -->
+	<script type="text/javascript" src="js/require/config.js"></script>
+	<script type="text/javascript" data-main="js/index.js" src="bower/requirejs/require.js"></script>
+	<!-- SCRIPT END -->
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div id="config">
+		<div class="text-center">
+			<p><button href="#" data-bind="click: show">New game</button></p>
+		</div>
+		<form class="configuration-form hidden">
+			<fieldset>
+				<legend>New game</legend>
+				<label>Density</label>
+				<input type="number" pattern="[0-9]" min="2" max="30" step="1" data-bind="value: pixelMultiplier"><br/>
+
+				<label>Size</label>
+				<input type="number" min="20" max="400" step="1" data-bind="value: areaX"> x
+				<input type="number" min="20" max="300" step="1" data-bind="value: areaY"><br/>
+
+				<label>Start level</label>
+				<input type="number" min="1" max="10" step="1" data-bind="value: startLevel"><br/>
+
+				<label>Start length</label>
+				<input type="number" min="3" max="100" step="1" data-bind="value: startLength"><br/>
+
+				<div class="text-center">
+					<button href="#" data-bind="click: save">Save</button>
+					<button href="#" data-bind="click: close">Cancel</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div id="game">
+		<div class="snake-area">
+			<!-- ko with: snake -->
+				<!-- ko foreach: $data.parts -->
+					<div class="snake" data-bind="coords: $data"></div>
+				<!-- /ko -->
+			<!-- /ko -->
+
+			<!-- ko with: food -->
+				<div class="food" data-bind="coords: $data.coords"></div>
+			<!-- /ko -->
+		</div>
+		<p class="status">score: <span data-bind="text: score"></span> level: <span data-bind="text: level"></span></p>
+
+	</div>
+
+	<p class="text-center"><a href="http://www.github.com/jeremija">[github/jeremija]</a></p>
+</body>
+</html>
