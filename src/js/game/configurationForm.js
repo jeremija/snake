@@ -3,6 +3,14 @@
  */
 define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
 
+    function set(object, property, observable) {
+        var value = observable();
+        if (!value || isNaN(value)) {
+            return;
+        }
+        object[property] = value;
+    }
+
     var exports = {
         viewModel: {
             pixelMultiplier: ko.observable(),
@@ -32,11 +40,12 @@ define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
             },
             save: function() {
                 var vm = exports.viewModel;
-                config.pixelMultiplier = vm.pixelMultiplier();
-                config.snakeParams.area.x = vm.areaX();
-                config.snakeParams.area.y = vm.areaY();
-                config.level.startLevel = vm.startLevel();
-                config.level.startLength = vm.startLength();
+
+                set(config, 'pixelMultiplier', vm.pixelMultiplier);
+                set(config.snakeParams.area, 'x', vm.areaX);
+                set(config.snakeParams.area, 'y', vm.areaY);
+                set(config.level, 'startLevel', vm.startLevel);
+                set(config.level, 'startLength', vm.startLength);
 
                 vm.close();
             },

@@ -39,6 +39,9 @@ build:
 		cssIn="src/css/style.css" \
 		out="dist/css/style.css"
 
+	@echo copying fonts
+	@cp -r src/fonts dist/
+
 	@echo copying index.html
 	@cp src/index.html dist/index.src.html
 

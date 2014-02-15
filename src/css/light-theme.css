@@ -1,0 +1,15 @@
+#game .snake-area {
+	border: 5px solid blue;
+}
+
+#game .snake {
+	background-color: #666;
+}
+
+#game .snake:first-child {
+	background-color: #000;
+}
+
+#game .food {
+	background-color: red;
+}

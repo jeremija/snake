@@ -1,0 +1,62 @@
+body,
+button,
+input,
+fieldset {
+	font-family: 'fsex300-webfont';
+	color: lime;
+	background-color: #222;
+	font-size: 16px;
+}
+
+
+input[type="number"] {
+	text-align: right
+}
+
+input:focus,
+button:focus {
+	border: 3px solid #0b0;
+}
+
+button, input, fieldset{
+	border: 3px solid lime;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+
+#game .snake-area {
+	border: 5px solid lime;
+}
+
+#game .snake {
+	background-color: lime;
+}
+
+#game .snake:first-child {
+	background-color: #0b0;
+}
+
+#game .food {
+	background-color: #0d0;
+}
+
+a {
+	color: lime;
+	text-decoration: none;
+}
+
+a:focus {
+	color: lime;
+}
+
+a:visited {
+	color: lime;
+}
+
+a:hover {
+	text-decoration: underline;
+};

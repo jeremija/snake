@@ -23,7 +23,7 @@
 
 				<label>Size</label>
 				<input type="number" min="20" max="400" step="1" data-bind="value: areaX"> x
-				<input type="number" min="20" max="300" step="1" data-bind="value: areaY"><br/>
+				<input type="number" min="20" max="300" step="1" pattern="[0-9]" data-bind="value: areaY"><br/>
 
 				<label>Start level</label>
 				<input type="number" min="1" max="10" step="1" data-bind="value: startLevel"><br/>
@@ -32,7 +32,7 @@
 				<input type="number" min="3" max="100" step="1" data-bind="value: startLength"><br/>
 
 				<div class="text-center">
-					<button href="#" data-bind="click: save">Save</button>
+					<input type="submit" data-bind="click: save" value="Save">
 					<button href="#" data-bind="click: close">Cancel</button>
 				</div>
 			</fieldset>
