@@ -114,7 +114,7 @@ define(['Extendable', 'game/Coordinates', 'knockout'], function(Extendable, Coor
             return this.move(1, 0);
         },
         /**
-         * Moves the snake last snake part to the specified coordinates. Only
+         * Moves the last snake part to the specified coordinates. Only
          * either deltaX or deltaY may be defined.
          * @param  {Number} deltaX   May be 1, 0 or -1
          * @param  {Number} deltaY   May be 1, 0 or -1
@@ -189,8 +189,9 @@ define(['Extendable', 'game/Coordinates', 'knockout'], function(Extendable, Coor
             });
         },
         /**
-         * Sets the direction before the next move. User can not change their
-         * mind.
+         * Sets the direction before the next move. This is final for the next
+         * move - user won't be able to change his mind. The subsequent  calls
+         * won't do anything until the {@link game/Snake#go} method is called.
          * @param {Direction} direction
          */
         setNextDirection: function(direction) {
