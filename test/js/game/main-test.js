@@ -206,6 +206,11 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 expect(snake.directionsQueue[2]).to.be('down');
                 expect(snake.directionsQueue[3]).to.be('left');
 
+                fakeKeyPress(config.keys.pause);
+                expect(main.isPaused()).to.be(true);
+                fakeKeyPress(config.keys.pause);
+                expect(main.isPaused()).to.be(false);
+
                 main.stop();
             });
             it('should restart itself after crash', function(done) {

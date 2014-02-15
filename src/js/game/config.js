@@ -18,6 +18,7 @@ define([], function() {
          * @property {Number} up     key code of the up key
          * @property {Number} right  key code of the right key
          * @property {Number} down   key code of the down key
+         * @property {Number} pause   key code of the pause key
          */
 
         /**
@@ -27,7 +28,8 @@ define([], function() {
             left: 37,
             up: 38,
             right: 39,
-            down: 40
+            down: 40,
+            pause: 80
         },
         /**
          * Parameters for {@link game/Snake} constructor. The area params will

@@ -218,7 +218,7 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
                     case config.keys.down:
                         snake.setNextDirection('down');
                         break;
-                    case 80:
+                    case config.keys.pause:
                         self.pause();
                         break;
                 }
