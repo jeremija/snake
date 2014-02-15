@@ -3,7 +3,9 @@ Snake
 
 Classic snake game written in javascript using [knockout.js](http://knockoutjs.com) and [require.js](http://requirejs.org). Tested on Chrome 32.
 
-Click [here for a preview](http://steinerize.com/snake).
+![snake screencast](http://i.imgur.com/89WuGNq.gif)
+
+Click [here to try it](http://steinerize.com/snake).
 
 Cloning and setting up
 ----------------------
