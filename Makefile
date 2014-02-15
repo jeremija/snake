@@ -32,6 +32,8 @@ all:
 
 	rm dist/index.src.html
 
+	@echo "SUCCESS!"
+
 
 .PHONY: server
 server:
