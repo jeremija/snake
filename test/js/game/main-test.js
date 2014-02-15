@@ -154,10 +154,8 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 snake = main.viewModel.snake();
             });
             afterEach(function() {
-                // save just in case stop() does not actually stop the interval
+                // save just in case stop() did not actually stop the interval
                 var intervalId =  main._intervalId;
-
-                main.stop();
 
                 // just in case
                 window.clearTimeout(intervalId);
@@ -174,60 +172,40 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                     return true;
                 };
 
+                var x = snake.getHead().x();
+
                 main._interval = 10;
                 main.start();
                 expect(main._intervalId).to.be.a('number');
 
                 setTimeout(function() {
                     expect(goCount).to.be.greaterThan(3);
+                    main.stop();
                     done();
                 }, 50);
             });
 
-            it('should be listening to keypress events', function(done) {
-                var initialX = snake.getHead().x();
-                var initialY = snake.getHead().y();
-
-                main._interval = 10;
+            it('should be listening to keypress events', function() {
                 main.start();
 
-                expect(snake.getDirection()).to.not.be.ok();
+                // do not clear the queue
+                snake.go = function() {};
 
-                fakeKeyPress(config.keys.left);
-                expect(snake.getDirection()).to.be('left');
-                // should only allow single set of direction in an interval
                 fakeKeyPress(config.keys.up);
-                expect(snake.getDirection()).to.be('left');
+                fakeKeyPress(config.keys.right);
+                fakeKeyPress(config.keys.down);
+                fakeKeyPress(config.keys.left);
+                // should ignore last one
+                fakeKeyPress(config.keys.right);
+                expect(snake.directionsQueue.length).to.be(4);
 
-                setTimeout(function() {
-                    var head = snake.getHead();
-                    expect(head.x()).to.be(initialX - 1);
-                    expect(head.y()).to.be(initialY);
+                expect(snake.directionsQueue[0]).to.be('up');
+                expect(snake.directionsQueue[1]).to.be('right');
+                expect(snake.directionsQueue[2]).to.be('down');
+                expect(snake.directionsQueue[3]).to.be('left');
 
-                    // should not allow 180 degree turns
-                    fakeKeyPress(config.keys.right);
-                    expect(snake.getDirection()).to.be('left');
-                    fakeKeyPress(config.keys.up);
-                    expect(snake.getDirection()).to.be('up');
-                }, 15);
-
-                setTimeout(function() {
-                    var head = snake.getHead();
-                    expect(head.x()).to.be(initialX - 1);
-                    expect(head.y()).to.be(initialY + 1);
-
-                    fakeKeyPress(config.keys.left);
-                    expect(snake.getDirection()).to.be('left');
-                }, 25);
-
-                setTimeout(function() {
-                    var head = snake.getHead();
-                    expect(head.x()).to.be(initialX - 2);
-                    expect(head.y()).to.be(initialY + 1);
-                    done();
-                }, 35);
+                main.stop();
             });
-
             it('should restart itself after crash', function(done) {
                 snake.willCrash = function() {
                     // fake a crash
@@ -239,8 +217,11 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 main._respawnTimeout = 20;
                 main.start();
 
+                var queue = snake.directionsQueue;
+                expect(queue.length).to.be(0);
+
                 snake.setNextDirection('left');
-                expect(snake.getDirection()).to.be('left');
+                expect(queue[0]).to.be('left');
 
                 expect(main._intervalId).to.be.a('number');
 

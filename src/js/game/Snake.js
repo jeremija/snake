@@ -34,9 +34,9 @@ define(['Extendable', 'game/Coordinates', 'knockout'],
          */
         this.lastDirection = undefined;
         /**
-         * @type {Direction}
+         * @type {Array.<Direction>}
          */
-        this.nextDirection = undefined;
+        this.directionsQueue = [];
         /**
          * True if the snake has crashed
          * @type {Boolean}
@@ -192,23 +192,29 @@ define(['Extendable', 'game/Coordinates', 'knockout'],
          * @param {Direction} direction
          */
         setNextDirection: function(direction) {
-            // if next direction was already set
-            if (this.nextDirection) {
+            var lastDirection =
+                // get the direction from the end of the queue
+                this.directionsQueue[this.directionsQueue.length - 1] ||
+                // or the last direction in which the snake moved
+                this.lastDirection;
+
+            var oppositeDirection = this._oppositeDirections[lastDirection];
+
+            if (oppositeDirection === direction) {
+                // do not push opposite directions to the queue
                 return;
             }
-            if (this._oppositeDirections[this.lastDirection] === direction) {
-                // do not set the opposite directions
-                return;
-            }
-            this.nextDirection = direction;
+
+            this.directionsQueue.push(direction);
         },
         /**
-         * Calculates the direction in which the snake will move
+         * Calculates the direction in which the snake will move. This also
+         * pops the next direction from the directionsQueue if it is not empty.
          * @return {Direction}
          */
-        getDirection: function() {
+        _getDirection: function() {
             // next direction or last direction
-            return this.nextDirection || this.lastDirection;
+            return this.directionsQueue.shift() || this.lastDirection;
         },
         /**
          * Moves the snake in a previous direction or in the next direction set
@@ -218,8 +224,7 @@ define(['Extendable', 'game/Coordinates', 'knockout'],
          * false if the snake has crashed.
          */
         go: function() {
-            var direction = this.getDirection();
-            this.nextDirection = undefined;
+            var direction = this._getDirection();
             if (!direction) {
                 return true;
             }

@@ -134,7 +134,7 @@ define(['game/Snake', 'game/Coordinates'], function(Snake, Coordinates) {
                 expect(snake.contains(2, 2)).to.be(false);
             });
         });
-        describe('setNextDirection() and getDirection()', function() {
+        describe('setNextDirection()', function() {
             before(function() {
                 snake = new Snake({
                     area: {
@@ -147,39 +147,96 @@ define(['game/Snake', 'game/Coordinates'], function(Snake, Coordinates) {
                     }
                 });
             });
-            it('should be functions', function() {
+            it('should be a function', function() {
                 expect(snake.setNextDirection).to.be.a('function');
-                expect(snake.getDirection).to.be.a('function');
+                expect(snake._getDirection).to.be.a('function');
             });
-            it('should set direction only once', function() {
-                snake.lastDirection = 'up';
-                snake.nextDirection = undefined;
-                expect(snake.getDirection()).to.be('up');
-                snake.setNextDirection('left');
-                expect(snake.getDirection()).to.be('left');
+            it('should have the directionsQueue', function() {
+                expect(snake.directionsQueue).to.be.an('array');
+                expect(snake.directionsQueue.length).to.be(0);
+                expect(snake.lastDirection).to.be(undefined);
             });
-            it('should not be able to set opposite direction', function() {
+            it('should add directions to the end of the queue', function() {
+                snake.setNextDirection('up');
+                expect(snake.directionsQueue.length).to.be(1);
+                expect(snake.directionsQueue[0]).to.be('up');
+
+                snake.setNextDirection('right');
+                expect(snake.directionsQueue.length).to.be(2);
+                expect(snake.directionsQueue[1]).to.be('right');
+
                 snake.setNextDirection('down');
-                expect(snake.getDirection()).to.be('left');
+                expect(snake.directionsQueue.length).to.be(3);
+                expect(snake.directionsQueue[2]).to.be('down');
+
+                snake.setNextDirection('left');
+                expect(snake.directionsQueue.length).to.be(4);
+                expect(snake.directionsQueue[3]).to.be('left');
+            });
+            it('should not set opposite directions', function() {
+                snake.directionsQueue = [];
+                snake.lastDirection = 'left';
+
+                snake.setNextDirection('right');
+                // should have ignored the right
+                expect(snake.directionsQueue.length).to.be(0);
+
+                snake.setNextDirection('up');
+                expect(snake.directionsQueue.length).to.be(1);
+                expect(snake.directionsQueue[0]).to.be('up');
+
+                snake.setNextDirection('down');
+                // should have ignored the down
+                expect(snake.directionsQueue.length).to.be(1);
             });
         });
         describe('go()', function() {
-            it('should move the snake in the next direction', function() {
-                snake.lastDirection = 'up';
-                snake.nextDirection = 'up';
+            var x, y;
+            before(function() {
+                snake = new Snake({
+                    area: {
+                        x: 30,
+                        y: 30
+                    },
+                    position: {
+                        x: 10,
+                        y: 10
+                    }
+                });
 
+                snake.lastDirection = 'up';
                 var head = snake.getHead();
-                var x = head.x();
-                var y = head.y();
+                x = head.x();
+                y = head.y();
+            });
+            it('should move the snake in the next direction', function() {
+                snake.setNextDirection('right');
+                snake.setNextDirection('down');
 
                 snake.go();
+                var head = snake.getHead();
+                var newX = head.x();
+                var newY = head.y();
 
-                var head2 = snake.getHead();
-                var x2 = head2.x();
-                var y2 = head2.y();
+                expect(newX).to.be(x + 1);
+                expect(newY).to.be(y);
 
-                expect(x).to.be(x2);
-                expect(y).to.be(y2 - 1);
+                snake.go();
+                head = snake.getHead();
+                newX = head.x();
+                newY = head.y();
+
+                expect(newX).to.be(x + 1);
+                expect(newY).to.be(y - 1);
+            });
+            it('should move the snake in the last direction', function() {
+                snake.go();
+                var head = snake.getHead();
+                var newX = head.x();
+                var newY = head.y();
+
+                expect(newX).to.be(x + 1);
+                expect(newY).to.be(y - 2);
             });
         });
     });
