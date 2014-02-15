@@ -205,6 +205,11 @@ define(['Extendable', 'game/Coordinates', 'knockout'],
                 return;
             }
 
+            if (lastDirection === direction) {
+                // do not push the same direction to the queue
+                return;
+            }
+
             this.directionsQueue.push(direction);
         },
         /**
