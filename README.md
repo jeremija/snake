@@ -16,11 +16,11 @@ Prerequisites: [bower](http://bower.io/) and a HTTP server of your choice. In th
 # clone the repository
 git clone https://github.com/jeremija/snake.git
 cd snake
-# install bower dependencies
+# install bower and npm dependencies
 bower install
-# install and run the http-server
-npm install -g http-server
-http-server
+npm install
+# start the server
+make server
 ```
 
 Now you should be able to navigate to [http://localhost:8080/src/index.html](http://localhost:8080/src/index.html) in your browser.
@@ -28,18 +28,29 @@ Now you should be able to navigate to [http://localhost:8080/src/index.html](htt
 Testing
 -------
 
-Follow the install guide, open your browser and navigate to [http://localhost:8080/test/test.html](http://localhost:8080/test/test.html).
+Follow the setting up guide, open your browser and navigate to [http://localhost:8080/test/test.html](http://localhost:8080/test/test.html).
 
 Building
 --------
 
 ```bash
-# install requirejs optimizer
+# install dependencies if not already
 npm install
-# install bower dependencies
 bower install
 # initiate build
 make
 ```
 
-A new folder called `/dist` should be created.
+and a `./dist` folder should be created.
+
+If you wish to build the documentation, run:
+
+```bash
+make docs
+```
+
+This should create a new folder: `./docs`.
+
+License
+-------
+MIT license.
