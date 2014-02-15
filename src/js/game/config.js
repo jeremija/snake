@@ -5,75 +5,65 @@
 define([], function() {
 
     var exports = {
+        /**
+         * Zoom level. Determines how many pixels will a single point take.
+         * @type {Number}
+         */
         pixelMultiplier: 12,
+
         /**
          * Defines the keys used for navigating the snake
-         * @type {Object}
+         * @typedef {Object} Keys
+         * @property {Number} left   key code of the left key
+         * @property {Number} up     key code of the up key
+         * @property {Number} right  key code of the right key
+         * @property {Number} down   key code of the down key
+         */
+
+        /**
+         * @type {Keys}
          */
         keys: {
-            /**
-             * @type {Number}
-             */
             left: 37,
-            /**
-             * @type {Number}
-             */
             up: 38,
-            /**
-             * @type {Number}
-             */
             right: 39,
-            /**
-             * @type {Number}
-             */
             down: 40
         },
+        /**
+         * Parameters for {@link game/Snake} constructor. The area params will
+         * be used for both food and the snake.
+         * @type {Object}
+         */
         snakeParams: {
-            /**
-             * Initial position of the snake
-             * @type {Object}
-             */
             position: {
-                /**
-                 * @type {Number}
-                 */
                 x: 10,
-                /**
-                 * @type {Number}
-                 */
                 y: 10
             },
-            /**
-             * Game area
-             * @type {Object}
-             */
             area: {
-                /**
-                 * @type {Number}
-                 */
                 x: 40,
-                /**
-                 * @type {Number}
-                 */
                 y: 30
             }
         },
+
+        /**
+         * Level configuration parameters
+         * @typedef {Object} Level
+         * @property {Number} interval        Default refresh interval for level
+         * in milliseconds
+         * @property {Number} intervalDivider Coefficient to divide the interval
+         * with for the next level. Should be > 1
+         * @property {Number} threshold       Defines after how many points to
+         * advance to next level
+         * @property {Number} startLevel      Defines the start level
+         * @property {Number} startLength     Defines the initial snake length
+         */
+
+        /**
+         * @type {Level}
+         */
         level: {
-            /**
-             * Default refresh interval for level 1 in milliseconds
-             * @type {Number}
-             */
             interval: 200,
-            /**
-             * Coefficient to divide the interval with to get the interval for
-             * the next level
-             * @type {Number}
-             */
             intervalDivider: 1.33,
-            /**
-             * Defines how many points are per level
-             * @type {Number}
-             */
             threshold: 5,
             startLevel: 1,
             startLength: 3

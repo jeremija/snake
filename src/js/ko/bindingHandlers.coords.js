@@ -1,13 +1,12 @@
 define(['knockout', 'game/config'], function(ko, config) {
 
     /**
-     * Sets the element's class to rotate an element. It will replace any
-     * other class set on the element.
-     * @function external:ko/BindingHandlers#rotate
-     * @param {Object}     options         configuration object
-     * @param {Observable} options.angle   Rotation degrees
-     * Valid values is any number between 0 and 359.
-     * @param {String}     className
+     * Binding handler for {@link game/Coordinates}. Will set the element's
+     * position to `absolute`, update it's width and height to match the
+     * {@link module:game/config.pixelMultiplier} property, and update the
+     * element style's left and bottom values.
+     * @function external:ko/BindingHandlers#coords
+     * @param {game/Coordinates}     coords
      */
     ko.bindingHandlers.coords = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {

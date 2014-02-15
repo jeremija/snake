@@ -1,16 +1,29 @@
 define(['Extendable', 'knockout'], function(Extendable, ko) {
 
     /**
+     * Literal representation of the coordinates
+     * @typedef {Object} Coords
+     * @property {Number} x   x-coordinate
+     * @property {Number} y   y-coordinate
+     */
+
+    /**
      * @class A class which defines 2D coordinates
      * @name game/Coordinates
      * @param {Number} x
      * @param {Number} y
      */
     function Coordinates(x, y) {
+        /**
+         * X coordinate
+         * @type {Number}
+         */
         this.x = ko.observable();
+        /**
+         * Y coordinate
+         * @type {external:ko/observable}
+         */
         this.y = ko.observable();
-        // this.x = x;
-        // this.y = y;
         this.reset(x, y);
     }
 

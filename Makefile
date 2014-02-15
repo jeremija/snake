@@ -1,6 +1,8 @@
 RJS=node node_modules/.bin/r.js
 BROWSER=google-chrome
-SERVER=http-server -p 8080
+SERVER_PORT=8080
+SERVER=http-server -p $(SERVER_PORT)
+JSDOC=node_modules/.bin/jsdoc
 
 all:
 	rm -rf dist/
@@ -33,6 +35,10 @@ all:
 
 .PHONY: server
 server:
-	@echo visit http://localhost:8080/src/index.html to start the app
-	@echo visit http://localhost:8080/test/test.html to run the tests
+	@echo visit http://localhost:$(SERVER_PORT)/src/index.html to start the app
+	@echo visit http://localhost:$(SERVER_PORT)/test/test.html to run the tests
 	$(SERVER)
+
+.PHONY: docs
+docs:
+	$(JSDOC) -d docs/ src/js/**/*.js

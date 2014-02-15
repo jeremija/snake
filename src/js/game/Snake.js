@@ -1,20 +1,17 @@
-define(['Extendable', 'game/Coordinates', 'knockout'], function(Extendable, Coordinates, ko) {
+define(['Extendable', 'game/Coordinates', 'knockout'],
+    function(Extendable, Coordinates, ko) {
 
     /**
-     * @typedef {Direction}
-     * Actually a string with possible values: 'left', 'right', 'up' or 'down'.
+     * A string with possible values: 'left', 'right', 'up' or 'down'.
+     * @typedef {String} Direction
      */
 
     /**
      * @class A class representing the snake.
      * @name game/Snake
      * @param {Object} params               configuration object
-     * @param {Object} params.position      initial position
-     * @param {Number} params.position.x    x coordinate of the initial pos
-     * @param {Number} params.position.y    y coordinate of the initial pos
-     * @param {Object} params.area          available area to move
-     * @param {Number} params.area.x        maximum available x
-     * @param {Number} params.area.y        maximum available y
+     * @param {Coords} params.position      initial position
+     * @param {Coords} params.area          available area to move
      */
     function Snake(params) {
         /**
@@ -22,7 +19,7 @@ define(['Extendable', 'game/Coordinates', 'knockout'], function(Extendable, Coor
          */
         var parts = [new Coordinates(params.position.x, params.position.y)];
         /**
-         * @type {ObservableArray}
+         * @type {external:ko/observableArray}
          */
         this.parts = ko.observableArray(parts);
 

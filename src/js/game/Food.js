@@ -5,9 +5,7 @@ define(['Extendable', 'game/Coordinates', 'math/random'],
      * @class Represents the food for snake
      * @name game/Food
      * @param {Object} params           configuration params
-     * @param {Object} params.area
-     * @param {Object} params.area.x
-     * @param {Object} params.area.y
+     * @param {Coords} params.area      game area
      */
     function Food(params) {
         this.coords = new Coordinates(-1, -1);
@@ -19,6 +17,9 @@ define(['Extendable', 'game/Coordinates', 'math/random'],
     }
 
     var FoodPrototype = /** @lends game/Food.prototype */ {
+        /**
+         * Moves the food to randomly generated coordinates
+         */
         respawn: function() {
             var area = this.area;
             var maxX = area.x();
@@ -29,9 +30,15 @@ define(['Extendable', 'game/Coordinates', 'math/random'],
 
             this.coords.reset(x, y);
         },
+        /**
+         * @return {Number} y-coordinate
+         */
         getX: function() {
             return this.coords.x();
         },
+        /**
+         * @return {Number} y-coordinate
+         */
         getY: function() {
             return this.coords.y();
         }

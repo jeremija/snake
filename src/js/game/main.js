@@ -89,7 +89,6 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
         /**
          * Respawns the food. Calls {@link game/Food#respawn} until the
          * coordinate pair is found which is not in the snake's place
-         * @return {[type]} [description]
          */
         respawnFood: function() {
             var viewModel = this.viewModel;
