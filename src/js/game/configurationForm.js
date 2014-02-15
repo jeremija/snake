@@ -46,6 +46,11 @@ define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
                 set(config.level, 'startLevel', vm.startLevel);
                 set(config.level, 'startLength', vm.startLength);
 
+                config.snakeParams.position.x =
+                    Math.round(config.snakeParams.area.x / 2);
+                config.snakeParams.position.y =
+                    Math.round(config.snakeParams.area.y / 2);
+
                 exports.form.className += ' hidden';
                 main.stop();
                 main.reset();

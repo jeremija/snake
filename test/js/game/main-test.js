@@ -172,8 +172,6 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                     return true;
                 };
 
-                var x = snake.getHead().x();
-
                 main._interval = 10;
                 main.start();
                 expect(main._intervalId).to.be.a('number');
