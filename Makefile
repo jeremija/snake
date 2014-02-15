@@ -1,4 +1,6 @@
 RJS=node node_modules/.bin/r.js
+BROWSER=google-chrome
+SERVER=http-server -p 8080
 
 all:
 	rm -rf dist/
@@ -27,3 +29,10 @@ all:
 		dist/index.src.html > dist/index.html
 
 	rm dist/index.src.html
+
+
+.PHONY: server
+server:
+	@echo visit http://localhost:8080/src/index.html to start the app
+	@echo visit http://localhost:8080/test/test.html to run the tests
+	$(SERVER)

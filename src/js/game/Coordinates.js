@@ -14,12 +14,16 @@ define(['Extendable', 'knockout'], function(Extendable, ko) {
         this.reset(x, y);
     }
 
-    var CoordinatesPrototype = {
+    var CoordinatesPrototype = /** @lends game/Coordinates.prototype  */ {
+        /**
+         * Returns a new instance of Coordinates with the same coords.
+         * @return {game/Coordinates}
+         */
         duplicate: function() {
             return new Coordinates(this.x(), this.y());
         },
         /**
-         * Set new coordinates
+         * Updates coordinates.
          * @param  {Number} x
          * @param  {Number} y
          */

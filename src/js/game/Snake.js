@@ -47,7 +47,7 @@ define(['Extendable', 'game/Coordinates', 'knockout'], function(Extendable, Coor
         this.crashed = false;
     }
 
-    var SnakePrototype = /** @lends Snake.prototype */ {
+    var SnakePrototype = /** @lends game/Snake.prototype */ {
         /**
          * Map of directions which will be ignored if called immediately after
          * the previous direction. For example if the last direction was 'left'

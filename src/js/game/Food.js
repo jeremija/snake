@@ -18,7 +18,7 @@ define(['Extendable', 'game/Coordinates', 'math/random'],
         this.respawn();
     }
 
-    var FoodPrototype = {
+    var FoodPrototype = /** @lends game/Food.prototype */ {
         respawn: function() {
             var area = this.area;
             var maxX = area.x();
