@@ -41,4 +41,5 @@ server:
 
 .PHONY: docs
 docs:
+	rm -rf docs/
 	$(JSDOC) -d docs/ src/js/**/*.js
