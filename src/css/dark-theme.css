@@ -8,11 +8,6 @@ fieldset {
 	font-size: 16px;
 }
 
-
-input[type="number"] {
-	text-align: right
-}
-
 input:focus,
 button:focus {
 	border: 3px solid #0b0;
@@ -59,4 +54,4 @@ a:visited {
 
 a:hover {
 	text-decoration: underline;
-};
+}

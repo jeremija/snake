@@ -2,8 +2,9 @@
 @import url('dark-theme.css');
 /*@import url('light-theme.css');*/
 
-input[type="number"] {
+input[type=number] {
 	width: 45px;
+	text-align: right;
 }
 
 #game {
