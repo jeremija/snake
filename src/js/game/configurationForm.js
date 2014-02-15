@@ -19,7 +19,9 @@ define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
             startLevel: ko.observable(),
             startLength: ko.observable(),
             show: function() {
-                main.stop();
+                if (!main.isPaused()) {
+                    main.pause();
+                }
 
                 var vm = exports.viewModel;
                 vm.pixelMultiplier(config.pixelMultiplier);
@@ -33,10 +35,7 @@ define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
             },
             close: function() {
                 exports.form.className += ' hidden';
-
-                main.stop();
-                main.reset();
-                main.start();
+                main.pause();
             },
             save: function() {
                 var vm = exports.viewModel;
@@ -47,7 +46,10 @@ define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
                 set(config.level, 'startLevel', vm.startLevel);
                 set(config.level, 'startLength', vm.startLength);
 
-                vm.close();
+                exports.form.className += ' hidden';
+                main.stop();
+                main.reset();
+                main.start();
             },
         },
         init: function(element) {

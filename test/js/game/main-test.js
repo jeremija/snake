@@ -177,10 +177,12 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 main._interval = 10;
                 main.start();
                 expect(main._intervalId).to.be.a('number');
+                expect(main.viewModel.status()).to.be('started');
 
                 setTimeout(function() {
                     expect(goCount).to.be.greaterThan(3);
-                    main.stop();
+                    main.stop('status');
+                    expect(main.viewModel.status()).to.be('status');
                     done();
                 }, 50);
             });
@@ -228,6 +230,7 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 setTimeout(function() {
                     expect(snake.crashed).to.be(true);
                     expect(main._intervalId).to.not.be.ok();
+                    expect(main.viewModel.status()).to.be('crashed');
                 }, 15);
 
                 setTimeout(function() {
@@ -239,7 +242,55 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                     expect(snake2).to.not.be(snake);
                     expect(snake2.crashed).to.be(false);
                     done();
-                }, 35);
+                }, 50);
+            });
+        });
+        describe('pause()', function() {
+            var startOrig, stopOrig, isStartedOrig,
+                stopStatus, startCount = 0, stopCount = 0, started = false;
+            before(function() {
+                // mock some functions
+                startOrig = main.start;
+                stopOrig = main.stop;
+                isStartedOrig = main.isStarted;
+
+                main.start = function() {
+                    startCount++;
+                };
+                main.stop = function(status) {
+                    stopCount++;
+                    stopStatus = status;
+                };
+                main.isStarted = function() {
+                    return started;
+                };
+            });
+            after(function() {
+                // unmock
+                main.start = startOrig;
+                main.stop = stopOrig;
+                main.isStarted = isStartedOrig;
+            });
+            it('should be a function', function() {
+                expect(main.pause).to.be.a('function');
+            });
+            it('should not do anything if status is `crashed`', function() {
+                main.viewModel.status('crashed');
+                main.pause();
+                expect(startCount).to.be(0);
+                expect(stopCount).to.be(0);
+            });
+            it('should call start when not started', function() {
+                main.viewModel.status(undefined);
+                main.pause();
+                expect(startCount).to.be(1);
+                expect(stopCount).to.be(0);
+            });
+            it('should call stop when started', function() {
+                started = true;
+                main.pause();
+                expect(startCount).to.be(1);
+                expect(startCount).to.be(1);
             });
         });
     });

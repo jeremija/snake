@@ -35,6 +35,11 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
              * @type {Observable.<Number>}
              */
             level: ko.observable(1),
+            /**
+             * Can be 'started', 'paused' or 'crashed'
+             * @type {Observable.<String>}
+             */
+            status: ko.observable()
         },
         /**
          * Initializes the main game module. Call this function only once.
@@ -127,16 +132,18 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
             }
 
             var viewModel = this.viewModel;
+            viewModel.status('started');
             var food = viewModel.food();
             var snake = viewModel.snake();
             var self = this;
 
             this._intervalId = window.setInterval(function() {
+
                 var crashed = !snake.go();
 
                 if (crashed) {
                     console.log('crashed');
-                    self.stop();
+                    self.stop('crashed');
                     setTimeout(function() {
                         self.reset();
                         self.start();
@@ -155,16 +162,48 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
         },
         /**
          * Stops the main interval loop
+         * @param {String} status    status to set after stopping. Should be
+         * 'paused' or 'crashed'.
          */
-        stop: function() {
+        stop: function(status) {
             window.clearInterval(this._intervalId);
+            this.viewModel.status(status);
             this._intervalId = undefined;
+        },
+        /**
+         * Toggles the state between 'started' and 'paused'. If the state is
+         * 'crashed', will not do anything.
+         */
+        pause: function() {
+            if (this.viewModel.status() === 'crashed') {
+                return;
+            }
+            if (this.isStarted()) {
+                this.stop('paused');
+                return;
+            }
+            this.start();
+        },
+        /**
+         * Checks if interval is set
+         * @return {Boolean} true if interval is set.
+         */
+        isStarted: function() {
+            return !!this._intervalId;
+        },
+        /**
+         * Checks if status is 'paused'.
+         * @return {Boolean}
+         */
+        isPaused: function() {
+            return this.viewModel.status() === 'paused';
         },
         /**
          * Listens to the keypress events
          */
         _listen: function() {
             var snake = this.viewModel.snake();
+            var self = this;
             this._keysElement.onkeydown = function(evt) {
                 switch(evt.keyCode) {
                     case config.keys.left:
@@ -178,6 +217,9 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
                         break;
                     case config.keys.down:
                         snake.setNextDirection('down');
+                        break;
+                    case 80:
+                        self.pause();
                         break;
                 }
             };
