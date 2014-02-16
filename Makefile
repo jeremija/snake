@@ -15,14 +15,20 @@ check:
 	@$(JSHINT) $(SOURCE)
 	@echo jshint reported no errors!
 
+.PHONY: snippets
+snippets:
+	@echo adding snippets to index.html
+	# this will
+	snippets/add-snippets.sh
+
 .PHONY: build
 build:
 
 	@echo cleaning old directory
-	rm -rf dist/
-	mkdir dist/
-	mkdir dist/js
-	mkdir dist/css
+	@rm -rf dist/
+	@mkdir dist/
+	@mkdir dist/js
+	@mkdir dist/css
 
 	@echo running r.js optimizer for js
 	@$(RJS) -o \
@@ -46,10 +52,13 @@ build:
 	@cp src/index.html dist/index.src.html
 
 	@echo replacing index.html \<script\> tags
-	@sed -e '/SCRIPT START/,/SCRIPT END/c\<script type="text/javascript" src="js/snake.js"></script>' \
+	@sed -e '/SCRIPT START/,/SCRIPT END/c\	<script type="text/javascript" src="js/snake.js"></script>' \
 		dist/index.src.html > dist/index.html
 
 	@rm dist/index.src.html
+
+	@echo adding snippets...
+	@snippets/add.js
 
 	@echo "build successfully finished!"
 
