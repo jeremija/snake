@@ -5,7 +5,7 @@ define([], function() {
 
     /**
      * @callback module:events/events~handler
-     * @param {*...} [args] arguments
+     * @param {...*} [args] arguments
      */
 
     var exports = {
@@ -19,7 +19,7 @@ define([], function() {
         /**
          * Dispatch event
          * @param {String} eventName  event name
-         * @param {*...} [args]     arguments to pass to the event handlers
+         * @param {...*} [args]     arguments to pass to the event handlers
          */
         dispatch: function(eventName) {
             // var handlers = this._listeners.event1;

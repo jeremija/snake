@@ -4,6 +4,11 @@
 define(['events/events'], function(events) {
 
     /**
+     * Event dispatched when a key is pressed
+     * @event module:events/events#keydown
+     */
+
+    /**
      * @callback module:keys/hotkeys~hotkeyHandler
      * @param {Number} keyCode    code of the key pressed
      */
@@ -11,12 +16,17 @@ define(['events/events'], function(events) {
     var exports = {
         _element: undefined,
         _handlers: [],
+        /**
+         * Listener for onkeydown event
+         * @fires keydown
+         * @param  {Event} event
+         */
         _onkeydown: function(event) {
             events.dispatch('keydown', event.keyCode, event);
         },
         /**
          * Sets the onkeydown callback on the element.
-         * @param  {HTMLElement} element
+         * @param {HTMLElement} element
          */
         init: function(element) {
             this._element = element;
