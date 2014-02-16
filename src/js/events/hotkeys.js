@@ -34,7 +34,7 @@ define(['events/events', 'hammer', 'game/config'],
             this._element.onkeydown = this._onkeydown.bind(this);
 
             // enable hammer gestures
-            hammer(element).on('swipe', this._swipeHandler);
+            hammer(element).on('drag', this._swipeHandler);
         },
         _swipeHandler: function(event) {
             var direction = event.gesture.direction;

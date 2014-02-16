@@ -49,7 +49,7 @@ define(['events/hotkeys', 'events/events', 'hammer', 'game/config'],
                 events.listen('keydown', function(keyCode) {
                     code = keyCode;
                 });
-                hammer(element).trigger('swipe', {
+                hammer(element).trigger('drag', {
                     direction: 'left'
                 });
                 expect(code).to.be(config.keys.left);

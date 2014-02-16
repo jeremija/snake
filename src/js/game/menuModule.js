@@ -10,6 +10,9 @@ define(['events/events', 'knockout', 'game/config'],
                 events.dispatch('pause');
                 events.dispatch('show-custom-game-module');
             },
+            pause: function() {
+                events.dispatch('pause-toggle');
+            }
         },
         init: function(element) {
             ko.applyBindings(this.viewModel, element);
