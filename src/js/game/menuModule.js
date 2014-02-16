@@ -17,7 +17,7 @@ define(['events/events', 'knockout', 'game/config'],
             this.keyBindings[config.keys.pause] = function(event) {
                 event.preventDefault();
                 events.dispatch('pause-toggle');
-            }
+            };
 
             events.listen('keydown', this._onkeydown, this);
         },
@@ -31,6 +31,7 @@ define(['events/events', 'knockout', 'game/config'],
         keyBindings: {
             112: function(event) {
                 event.preventDefault();
+                events.dispatch('pause');
                 document.getElementById('about-link').click();
             },
             //F2
