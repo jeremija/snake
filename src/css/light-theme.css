@@ -1,15 +1,15 @@
-#game .snake-area {
+#game-module .snake-area {
 	border: 5px solid blue;
 }
 
-#game .snake {
+#game-module .snake {
 	background-color: #666;
 }
 
-#game .snake:first-child {
+#game-module .snake:first-child {
 	background-color: #000;
 }
 
-#game .food {
+#game-module .food {
 	background-color: red;
 }

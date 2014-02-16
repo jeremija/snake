@@ -1,6 +1,6 @@
 define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
-    'game/Coordinates'],
-    function(main, ko, config, Snake, Food, Coordinates) {
+    'game/Coordinates', 'events/events'],
+    function(main, ko, config, Snake, Food, Coordinates, events) {
     describe('test/js/game/main-test.js', function() {
         it('should be ok', function() {
             expect(main).to.be.an('object');
@@ -37,10 +37,13 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
             element.appendChild(snakeArea);
 
             document.getElementById('test').appendChild(element);
+
+            events.clear();
         });
         after(function() {
             ko.cleanNode(element);
             document.getElementById('test').innerHTML = '';
+            events.clear();
         });
 
         describe('init()', function() {
@@ -79,6 +82,14 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 vm.level(4);
                 expect(scoreElement.innerHTML).to.be('3');
                 expect(levelElement.innerHTML).to.be('4');
+            });
+            it('should listen to pause, unpause & restart events', function() {
+                expect(events._listeners.pause.length).to.be(1);
+                expect(events._listeners['pause-toggle'].length).to.be(1);
+                expect(events._listeners.unpause.length).to.be(1);
+                expect(events._listeners.restart.length).to.be(1);
+                expect(events._listeners.restart[0].callback)
+                    .to.be(main.restart);
             });
         });
         describe('reset()', function() {
@@ -160,11 +171,6 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 // just in case
                 window.clearTimeout(intervalId);
             });
-            function fakeKeyPress(keyCode) {
-                main._keysElement.onkeydown({
-                    keyCode: keyCode
-                });
-            }
             it('should start the interval timer', function(done) {
                 var goCount = 0;
                 snake.go = function() {
@@ -185,33 +191,7 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 }, 50);
             });
 
-            it('should be listening to keypress events', function() {
-                main.start();
-
-                // do not clear the queue
-                snake.go = function() {};
-
-                fakeKeyPress(config.keys.up);
-                fakeKeyPress(config.keys.right);
-                fakeKeyPress(config.keys.down);
-                fakeKeyPress(config.keys.left);
-                // should ignore last one
-                fakeKeyPress(config.keys.right);
-                expect(snake.directionsQueue.length).to.be(4);
-
-                expect(snake.directionsQueue[0]).to.be('up');
-                expect(snake.directionsQueue[1]).to.be('right');
-                expect(snake.directionsQueue[2]).to.be('down');
-                expect(snake.directionsQueue[3]).to.be('left');
-
-                fakeKeyPress(config.keys.pause);
-                expect(main.isPaused()).to.be(true);
-                fakeKeyPress(config.keys.pause);
-                expect(main.isPaused()).to.be(false);
-
-                main.stop();
-            });
-            it('should restart itself after crash', function(done) {
+            it('should stop after crash', function(done) {
                 snake.willCrash = function() {
                     // fake a crash
                     return true;
@@ -219,7 +199,6 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
 
 
                 main._interval = 10;
-                main._respawnTimeout = 20;
                 main.start();
 
                 var queue = snake.directionsQueue;
@@ -234,18 +213,8 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                     expect(snake.crashed).to.be(true);
                     expect(main._intervalId).to.not.be.ok();
                     expect(main.viewModel.status()).to.be('crashed');
-                }, 15);
-
-                setTimeout(function() {
-                    expect(main._intervalId).to.be.a('number');
-
-                    var snake2 = main.viewModel.snake();
-                    // should be replaced by a new snake
-                    expect(snake2).to.be.ok();
-                    expect(snake2).to.not.be(snake);
-                    expect(snake2.crashed).to.be(false);
                     done();
-                }, 50);
+                }, 15);
             });
         });
         describe('pause()', function() {
@@ -273,6 +242,8 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 main.start = startOrig;
                 main.stop = stopOrig;
                 main.isStarted = isStartedOrig;
+
+                main.stop();
             });
             it('should be a function', function() {
                 expect(main.pause).to.be.a('function');
@@ -294,6 +265,32 @@ define(['game/main', 'knockout', 'game/config', 'game/Snake', 'game/Food',
                 main.pause();
                 expect(startCount).to.be(1);
                 expect(startCount).to.be(1);
+            });
+        });
+        describe('bindHotkeys()', function() {
+            it('should start listening to keydown event', function() {
+                main.bindHotkeys();
+                expect(events._listeners.keydown.length).to.be(1);
+                var snake = main.viewModel.snake();
+
+                events.dispatch('keydown', config.keys.up);
+                events.dispatch('keydown', config.keys.right);
+                events.dispatch('keydown', config.keys.down);
+                events.dispatch('keydown', config.keys.left);
+                // should ignore last one
+                events.dispatch('keydown', config.keys.right);
+                expect(snake.directionsQueue.length).to.be(4);
+
+                expect(snake.directionsQueue[0]).to.be('up');
+                expect(snake.directionsQueue[1]).to.be('right');
+                expect(snake.directionsQueue[2]).to.be('down');
+                expect(snake.directionsQueue[3]).to.be('left');
+            });
+        });
+        describe('unbindHotkeys()', function() {
+            it('should stop listening to keydown event', function() {
+                main.unbindHotkeys();
+                expect(events._listeners.keydown.length).to.be(0);
             });
         });
     });

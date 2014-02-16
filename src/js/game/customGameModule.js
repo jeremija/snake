@@ -1,7 +1,8 @@
 /**
  * @module game/configurationForm
  */
-define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
+define(['game/config', 'knockout', 'events/events'],
+    function(config, ko, events) {
 
     function set(object, property, observable) {
         var value = observable();
@@ -18,10 +19,10 @@ define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
             areaY: ko.observable(),
             startLevel: ko.observable(),
             startLength: ko.observable(),
+            visible: ko.observable(false),
+            focus: ko.observable(false),
             show: function() {
-                if (!main.isPaused()) {
-                    main.pause();
-                }
+                events.dispatch('pause');
 
                 var vm = exports.viewModel;
                 vm.pixelMultiplier(config.pixelMultiplier);
@@ -30,12 +31,15 @@ define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
                 vm.startLevel(config.level.startLevel);
                 vm.startLength(config.level.startLength);
 
-                var form = exports.form;
-                form.className = form.className.replace(/\bhidden\b/, '');
+                vm.visible(true);
+                vm.focus(true);
+
+                events.listen('keydown', exports.onkeydown, exports);
             },
             close: function() {
-                exports.form.className += ' hidden';
-                main.pause();
+                exports.viewModel.visible(false);
+                events.unlisten('keydown', exports.onkeydown);
+                events.dispatch('unpause');
             },
             save: function() {
                 var vm = exports.viewModel;
@@ -51,16 +55,23 @@ define(['game/config', 'knockout', 'game/main'], function(config, ko, main) {
                 config.snakeParams.position.y =
                     Math.round(config.snakeParams.area.y / 2);
 
-                exports.form.className += ' hidden';
-                main.stop();
-                main.reset();
-                main.start();
+                exports.viewModel.visible(false);
+
+                events.dispatch('restart');
             },
         },
         init: function(element) {
             this.element = element;
-            this.form = element.getElementsByClassName('configuration-form')[0];
             ko.applyBindings(this.viewModel, element);
+
+            events.listen('show-custom-game-module', this.viewModel.show, this);
+        },
+        onkeydown: function(keyCode, event) {
+            // escape
+            if (keyCode === 27) {
+                event.preventDefault();
+                this.viewModel.close();
+            }
         }
     };
 

@@ -2,11 +2,10 @@
  * Main game module
  * @module game/main
  */
-define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
-    function(config, Snake, Food, ko) {
+define(['game/config', 'game/Snake', 'game/Food', 'knockout', 'events/events'],
+    function(config, Snake, Food, ko, events) {
 
     var exports = {
-        _respawnTimeout: 2000, // ms
         /**
          * Interval for the timer
          * @type {Number}
@@ -46,21 +45,27 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
          * @param {Object}     params              configuration object
          * @param {HTMLElement} params.gameElement    Element in which the game
          * will be displayed
-         * @param {HTMLElement} [params.keysElement]  Element which will listen
-         * to key presses. If omitted, document will be used.
          */
         init: function(params) {
-            // this.viewModel.food(new Food({
-            //     area: config.snakeParams.area
-            // }));
-            this._keysElement = params.keysElement;
-
             this._gameElement = params.gameElement;
             this._gameElement.className += ' ready';
 
             this.reset();
 
             ko.applyBindings(this.viewModel, params.gameElement);
+
+            events.listen('pause', function() {
+                if (!this.isPaused()) {
+                    this.pause();
+                }
+            }, this);
+            events.listen('unpause', function() {
+                if (this.isPaused()) {
+                    this.pause();
+                }
+            }, this);
+            events.listen('restart', this.restart, this);
+            events.listen('pause-toggle', this.pause, this);
         },
         resize: function() {
             var area =
@@ -142,12 +147,7 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
                 var crashed = !snake.go();
 
                 if (crashed) {
-                    console.log('crashed');
                     self.stop('crashed');
-                    setTimeout(function() {
-                        self.reset();
-                        self.start();
-                    }, self._respawnTimeout);
                     return;
                 }
 
@@ -158,7 +158,12 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
                 }
             }, this._interval);
 
-            this._listen();
+            this.bindHotkeys();
+        },
+        restart: function() {
+            this.stop();
+            this.reset();
+            this.start();
         },
         /**
          * Stops the main interval loop
@@ -166,9 +171,10 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
          * 'paused' or 'crashed'.
          */
         stop: function(status) {
-            window.clearInterval(this._intervalId);
             this.viewModel.status(status);
+            window.clearInterval(this._intervalId);
             this._intervalId = undefined;
+            this.unbindHotkeys();
         },
         /**
          * Toggles the state between 'started' and 'paused'. If the state is
@@ -198,31 +204,31 @@ define(['game/config', 'game/Snake', 'game/Food', 'knockout'],
         isPaused: function() {
             return this.viewModel.status() === 'paused';
         },
+        _keydownListener: function(keyCode) {
+            var snake = this.viewModel.snake();
+            switch(keyCode) {
+                case config.keys.left:
+                    snake.setNextDirection('left');
+                    break;
+                case config.keys.up:
+                    snake.setNextDirection('up');
+                    break;
+                case config.keys.right:
+                    snake.setNextDirection('right');
+                    break;
+                case config.keys.down:
+                    snake.setNextDirection('down');
+                    break;
+            }
+        },
         /**
          * Listens to the keypress events
          */
-        _listen: function() {
-            var snake = this.viewModel.snake();
-            var self = this;
-            this._keysElement.onkeydown = function(evt) {
-                switch(evt.keyCode) {
-                    case config.keys.left:
-                        snake.setNextDirection('left');
-                        break;
-                    case config.keys.up:
-                        snake.setNextDirection('up');
-                        break;
-                    case config.keys.right:
-                        snake.setNextDirection('right');
-                        break;
-                    case config.keys.down:
-                        snake.setNextDirection('down');
-                        break;
-                    case config.keys.pause:
-                        self.pause();
-                        break;
-                }
-            };
+        bindHotkeys: function() {
+            events.listen('keydown', this._keydownListener, this);
+        },
+        unbindHotkeys: function() {
+            events.unlisten('keydown', this._keydownListener);
         },
         /**
          * Increases the level count in the viewModel, changes the interval

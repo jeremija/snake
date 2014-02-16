@@ -12,6 +12,7 @@ input:focus {
 	box-shadow: none
 	border: none;
 	border-bottom: 2px solid #0b0;
+	color: #0b0;
 }
 
 input {
@@ -53,18 +54,18 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
-#game .snake-area {
+#game-module .snake-area {
 	border: 5px solid lime;
 }
 
-#game .snake {
+#game-module .snake {
 	background-color: lime;
 }
 
-#game .snake:first-child {
+#game-module .snake:first-child {
 	background-color: #0b0;
 }
 
-#game .food {
+#game-module .food {
 	background-color: #0d0;
 }

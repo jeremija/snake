@@ -10,6 +10,10 @@ var tests = [
     // ko bindings
     'test/js/ko/bindingHandlers.coords-test',
 
+    // keys
+    'test/js/events/events-test',
+    'test/js/events/hotkeys-test',
+
     // game
     'test/js/game/config-test',
     'test/js/game/Coordinates-test',

@@ -16,15 +16,18 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<div id="config">
-		<div class="text-center">
-			<p><button href="#" data-bind="click: show">[New game]</button></p>
+	<div id="wrapper" class="hidden">
+		<div id="menu-module" class="text-center">
+			<p>
+				<button href="#" data-bind="click: newGame">[New game (F2)]</button>
+				<button href="#" data-bind="click: customGame">[Custom game (F3)]</button>
+			</p>
 		</div>
-		<form class="configuration-form hidden">
+		<form id="custom-game-module" data-bind="visible: visible">
 			<fieldset>
 				<legend>New game</legend>
 				<label>Zoom</label>
-				<input type="number" pattern="[0-9]" min="2" max="30" step="1" data-bind="value: pixelMultiplier"><br/>
+				<input type="number" pattern="[0-9]" min="2" max="30" step="1" data-bind="value: pixelMultiplier, hasFocus: focus"><br/>
 
 				<label>Size</label>
 				<input type="number" min="20" max="400" step="1" data-bind="value: areaX"> x
@@ -37,30 +40,29 @@
 				<input type="number" min="3" max="100" step="1" data-bind="value: startLength"><br/>
 
 				<div class="text-center">
-					<input type="submit" data-bind="click: save" value="[Save]">
+					<input type="submit" data-bind="click: save" value="[OK]">
 					<button href="#" data-bind="click: close">[Cancel]</button>
 				</div>
 			</fieldset>
 		</form>
-	</div>
-	<div id="game">
-		<div class="snake-area">
-           <div class="dimmed" data-bind="visible: status() == 'paused'">Paused (P)</div>
-           <div class="dimmed" data-bind="visible: status() == 'crashed'">Game over!</div>
-			<!-- ko with: snake -->
-				<!-- ko foreach: $data.parts -->
-					<div class="snake" data-bind="coords: $data"></div>
+		<div id="game-module">
+			<div class="snake-area">
+	           <div class="dimmed" data-bind="visible: status() == 'paused'">Paused (P)</div>
+	           <div class="dimmed" data-bind="visible: status() == 'crashed'">Game over!<br>Press F2 to restart</div>
+				<!-- ko with: snake -->
+					<!-- ko foreach: $data.parts -->
+						<div class="snake" data-bind="coords: $data"></div>
+					<!-- /ko -->
 				<!-- /ko -->
-			<!-- /ko -->
 
-			<!-- ko with: food -->
-				<div class="food" data-bind="coords: $data.coords"></div>
-			<!-- /ko -->
+				<!-- ko with: food -->
+					<div class="food" data-bind="coords: $data.coords"></div>
+				<!-- /ko -->
+			</div>
+			<p class="status">score: <span data-bind="text: score"></span> level: <span data-bind="text: level"></span></p>
 		</div>
-		<p class="status">score: <span data-bind="text: score"></span> level: <span data-bind="text: level"></span></p>
-
 	</div>
 
-	<p class="text-center"><a href="http://www.github.com/jeremija/snake" target="_blank">[github/jeremija/snake]</a></p>
+	<p class="text-center"><a id="about-link" href="http://www.github.com/jeremija/snake" target="_blank">[github/jeremija/snake (F1)]</a></p>
 </body>
 </html>
