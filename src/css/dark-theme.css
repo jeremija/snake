@@ -8,13 +8,36 @@ fieldset {
 	font-size: 16px;
 }
 
-input:focus,
-button:focus {
-	border: 3px solid #0b0;
+input:focus {
+	border: 2px solid #0b0;
 }
 
-button, input, fieldset{
-	border: 3px solid lime;
+input, fieldset{
+	border: 2px solid lime;
+}
+
+a,
+button,
+input[type="submit"] {
+	color: lime;
+	text-decoration: none;
+	border: none;
+}
+
+a:focus,
+button:focus,
+input[type="submit"]:focus {
+	color: #0b0;
+	border: none;
+}
+
+a:visited {
+}
+
+a:hover,
+button:hover,
+input[type="submit"]:hover {
+	text-decoration: underline;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -37,21 +60,4 @@ input[type=number]::-webkit-outer-spin-button {
 
 #game .food {
 	background-color: #0d0;
-}
-
-a {
-	color: lime;
-	text-decoration: none;
-}
-
-a:focus {
-	color: lime;
-}
-
-a:visited {
-	color: lime;
-}
-
-a:hover {
-	text-decoration: underline;
 }
