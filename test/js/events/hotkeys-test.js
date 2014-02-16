@@ -1,4 +1,5 @@
-define(['events/hotkeys', 'events/events'], function(hotkeys, events) {
+define(['events/hotkeys', 'events/events', 'hammer', 'game/config'],
+    function(hotkeys, events, hammer, config) {
 
     describe('test/js/keys/hotkeys-test.js', function() {
         var element;
@@ -9,6 +10,8 @@ define(['events/hotkeys', 'events/events'], function(hotkeys, events) {
         });
         after(function() {
             document.getElementById('test').innerHTML = '';
+        });
+        afterEach(function() {
             events.clear();
         });
 
@@ -37,6 +40,19 @@ define(['events/hotkeys', 'events/events'], function(hotkeys, events) {
                     keyCode: 156
                 });
                 expect(code).to.be(156);
+            });
+        });
+
+        describe('hammer swipe events', function() {
+            it('should dispatch keydown event', function() {
+                var code;
+                events.listen('keydown', function(keyCode) {
+                    code = keyCode;
+                });
+                hammer(element).trigger('swipe', {
+                    direction: 'left'
+                });
+                expect(code).to.be(config.keys.left);
             });
         });
 

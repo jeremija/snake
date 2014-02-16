@@ -1,7 +1,8 @@
 /**
  * @module keys/hotkeys
  */
-define(['events/events'], function(events) {
+define(['events/events', 'hammer', 'game/config'],
+    function(events, hammer, config) {
 
     /**
      * Event dispatched when a key is pressed
@@ -31,11 +32,21 @@ define(['events/events'], function(events) {
         init: function(element) {
             this._element = element;
             this._element.onkeydown = this._onkeydown.bind(this);
+
+            // enable hammer gestures
+            hammer(element).on('swipe', this._swipeHandler);
+        },
+        _swipeHandler: function(event) {
+            var direction = event.gesture.direction;
+            events.dispatch('keydown', config.keys[direction], event);
         },
         /**
          * Clears the onkeydown listener on the element
          */
         clear: function() {
+            // disable hammer
+            hammer(this._element).off('swipe', this._swipeHandler);
+
             this._element.onkeydown = null;
             this._element = undefined;
         }

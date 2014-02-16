@@ -16,7 +16,8 @@
   "dependencies": {
     "requirejs": "~2.1.10",
     "extendable.js": "~0.0.3",
-    "knockout.js": "~3.0.0"
+    "knockout.js": "~3.0.0",
+    "hammerjs": "~1.0.6"
   },
   "devDependencies": {
     "mocha": "~1.17.1",

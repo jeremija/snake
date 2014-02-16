@@ -42,8 +42,8 @@ define([], function() {
                 y: 10
             },
             area: {
-                x: 40,
-                y: 30
+                x: 30,
+                y: 20
             }
         },
 
