@@ -43,10 +43,10 @@ input[type=number] {
 	z-index: 999;
 
 	left: 50%;
-	margin-left: -175px;
+	margin-left: -140px;
 	top: 80px;
 
-	width: 350px;
+	width: 280px;
 }
 
 #custom-game-module label {
