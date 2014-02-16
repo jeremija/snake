@@ -9,10 +9,17 @@ fieldset {
 }
 
 input:focus {
-	border: 2px solid #0b0;
+	box-shadow: none
+	border: none;
+	border-bottom: 2px solid #0b0;
 }
 
-input, fieldset{
+input {
+	border: none;
+	border-bottom: 2px solid lime;
+}
+
+fieldset{
 	border: 2px solid lime;
 }
 
