@@ -1,11 +1,21 @@
 Snake
 =====
 
-Classic snake game written in javascript using [knockout.js](http://knockoutjs.com) and [require.js](http://requirejs.org). Tested on Chrome 32.
+Classic snake game written in JavaScript. Uses [knockout.js](http://knockoutjs.com) and [require.js](http://requirejs.org). Also uses [Hammer.js](eightmedia.github.io/hammer.js/) for gestures on devices with touchscreens.
 
 ![snake screencast](http://i.imgur.com/89WuGNq.gif)
 
-Click [here to try it](http://steinerize.com/snake).
+Click [here to try it](http://steinerize.com/snake). Use arrow keys to move if you are on a desktop computer, or swipe gestures if you are on a mobile device.
+
+Tested on
+---------
+
+* Chrome 32, Firefox 27 on Ubuntu 13.10
+* IE9 on Windows 7
+* Chrome 32, Browser (Chrome 30) on Android 4.4 (Nexus 4)
+* Chrome 32 on iOS 6 (iPhone 4)
+
+Drag/swipe gestures are sometimes not regstered by Chrome on Android devices and that's most probably because of [this bug](https://code.google.com/p/chromium/issues/detail?id=152913).
 
 Cloning and setting up
 ----------------------
