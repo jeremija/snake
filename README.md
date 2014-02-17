@@ -20,7 +20,7 @@ Drag/swipe gestures are sometimes not regstered by Chrome on Android devices and
 Cloning and setting up
 ----------------------
 
-Prerequisites: [bower](http://bower.io/) and a HTTP server of your choice. In this example [http-server](https://www.npmjs.org/package/http-server) available via [npm](https://www.npmjs.org/) will be used.
+Prerequisites: [npm](https://www.npmjs.org/) and [bower](http://bower.io/) installed globally or their location must be added to the `$PATH` environment variable.
 
 ```bash
 # clone the repository
@@ -40,7 +40,7 @@ Testing
 
 Follow the setting up guide, open your browser and navigate to [http://localhost:8080/test/test.html](http://localhost:8080/test/test.html).
 
-You can also run the tests by using typing `make test`. This will use [mocha-phantomjs](https://www.npmjs.org/package/mocha-phantomjs) as the test runner.
+You can also run the tests by typing `make test`. This will use [mocha-phantomjs](https://www.npmjs.org/package/mocha-phantomjs) as the test runner.
 
 Building
 --------
