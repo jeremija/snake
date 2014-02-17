@@ -1,7 +1,7 @@
 Snake
 =====
 
-Classic snake game written in JavaScript. Uses [knockout.js](http://knockoutjs.com) and [require.js](http://requirejs.org). Also uses [Hammer.js](eightmedia.github.io/hammer.js/) for gestures on devices with touchscreens.
+Classic snake game written in JavaScript. Uses [knockout.js](http://knockoutjs.com) and [require.js](http://requirejs.org). Also uses [Hammer.js](http://eightmedia.github.io/hammer.js/) for gestures on devices with touchscreens.
 
 ![snake screencast](http://i.imgur.com/89WuGNq.gif)
 
