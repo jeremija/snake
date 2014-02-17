@@ -1,5 +1,5 @@
-require(['ko/index', 'events/hotkeys', 'game/main', 'game/customGameModule',
-    'game/menuModule'],
+require(['ko/index', 'events/hotkeys', 'game/main', 'game/customGame-mod',
+    'game/menu-mod'],
     function(bindings, hotkeys, main, customGameModule, menuModule) {
 
     window.main = main;

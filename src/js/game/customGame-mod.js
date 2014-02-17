@@ -56,7 +56,7 @@ define(['game/config', 'knockout', 'events/events'],
                     Math.round(config.snakeParams.area.y / 2);
 
                 exports.viewModel.visible(false);
-
+                events.unlisten('keydown', exports.onkeydown);
                 events.dispatch('restart');
             },
         },
