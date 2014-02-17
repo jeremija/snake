@@ -4,7 +4,7 @@ require(['ko/index', 'events/hotkeys', 'game/main', 'game/customGameModule',
 
     window.main = main;
 
-    hotkeys.init(document);
+    hotkeys.init(document, document.getElementById('game-module'));
 
     main.init({
         gameElement: document.getElementById('game-module')
