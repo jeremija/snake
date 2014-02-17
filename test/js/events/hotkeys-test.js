@@ -50,7 +50,8 @@ define(['events/hotkeys', 'events/events', 'hammer', 'game/config'],
                     code = keyCode;
                 });
                 hammer(element).trigger('drag', {
-                    direction: 'left'
+                    direction: 'left',
+                    preventDefault: function() {}
                 });
                 expect(code).to.be(config.keys.left);
             });
