@@ -7,6 +7,16 @@ Classic snake game written in JavaScript. Uses [knockout.js](http://knockoutjs.c
 
 Click [here to try it](http://steinerize.com/snake). Use arrow keys to move if you are on a desktop computer, or swipe gestures if you are on a mobile device.
 
+Features
+--------
+* Retro look
+* Control the snake with arrow keys, mouse, or swipe gestures
+* Hotkeys for every command:
+    * `F1` for opening this GitHub page
+    * `F2` for restarting the game
+    * `F3` for configuring and starting a custom game and
+    * `P` for pause
+
 Tested on
 ---------
 
