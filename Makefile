@@ -6,8 +6,11 @@ JSDOC=node node_modules/.bin/jsdoc
 JSHINT=node node_modules/.bin/jshint
 SOURCE=src/js/**/*.js
 
+MOCHA=node node_modules/.bin/mocha-phantomjs
+TEST_URL="test/test.html"
+
 .PHONY: all
-all: check build
+all: check test build
 
 .PHONY: check
 check:
@@ -73,3 +76,11 @@ server:
 docs:
 	rm -rf docs/
 	$(JSDOC) -d docs/ src/js/**/*.js
+
+.PHONY: test
+test:
+	$(MOCHA) $(TEST_URL)
+
+.PHONY: test-grep
+test-grep:
+	$(MOCHA) $(TEST_URL)"?grep="$(GREP)
