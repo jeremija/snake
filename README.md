@@ -40,6 +40,8 @@ Testing
 
 Follow the setting up guide, open your browser and navigate to [http://localhost:8080/test/test.html](http://localhost:8080/test/test.html).
 
+You can also run the tests by using typing `make test`. This will use [mocha-phantomjs](https://www.npmjs.org/package/mocha-phantomjs) as the test runner.
+
 Building
 --------
 
