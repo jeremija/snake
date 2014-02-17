@@ -20,6 +20,6 @@ var tests = [
     'test/js/game/Snake-test',
     'test/js/game/Food-test',
     'test/js/game/main-test',
-    'test/js/game/customGame-mod-test'
-    // 'test/js/game/menu-mod-test',
+    'test/js/game/customGame-mod-test',
+    'test/js/game/menu-mod-test'
 ];

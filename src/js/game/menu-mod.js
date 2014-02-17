@@ -32,17 +32,18 @@ define(['events/events', 'knockout', 'game/config'],
             handler.call(this, event);
         },
         keyBindings: {
+            // F1
             112: function(event) {
                 event.preventDefault();
                 events.dispatch('pause');
                 document.getElementById('about-link').click();
             },
-            //F2
+            // F2
             113: function(event) {
                 event.preventDefault();
                 this.viewModel.newGame();
             },
-            //F3
+            // F3
             114: function(event) {
                 event.preventDefault();
                 this.viewModel.customGame();
