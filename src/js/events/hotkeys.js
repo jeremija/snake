@@ -35,17 +35,18 @@ define(['events/events', 'hammer', 'game/config'],
             this._swipeElement = swipeElement || element;
 
             // enable hammer gestures
-            hammer(this._swipeElement).on('drag swipe', this._swipeHandler);
+            hammer(this._swipeElement, {
+                /**
+                 * This is to fix hammerjs issue #124. Apparently there is a bug
+                 * in chrome on android and it sometimes does not dispatch the
+                 * touchend event.
+                 * {@link: https://github.com/EightMedia/hammer.js/issues/124}
+                 */
+                prevent_default: true
+            }).on('drag swipe', this._swipeHandler);
         },
         _lastSwipeDirection: undefined,
         _swipeHandler: function(event) {
-            /**
-             * This is to fix hammerjs issue #124. Apparently there is a bug
-             * in chrome on android and it sometimes does not dispatch the
-             * touchend event.
-             * {@link: https://github.com/EightMedia/hammer.js/issues/124}
-             */
-            event.gesture.preventDefault();
             var direction = event.gesture.direction;
             if (exports._lastSwipeDirection === direction) {
                 // do not trigger same direction twice, fixes performance issues
