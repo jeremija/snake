@@ -25,8 +25,6 @@ Tested on
 * Chrome 32, Browser (Chrome 30) on Android 4.4 (Nexus 4)
 * Chrome 32 on iOS 6 (iPhone 4)
 
-Drag/swipe gestures are sometimes not regstered by Chrome on Android devices and that's most probably because of [this bug](https://code.google.com/p/chromium/issues/detail?id=152913).
-
 Cloning and setting up
 ----------------------
 
