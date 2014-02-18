@@ -12,7 +12,7 @@ Features
 * Retro look
 * Control the snake with arrow keys, mouse, or swipe gestures
 * Hotkeys for every command:
-    * `F1` for opening this GitHub page
+    * `F1` for displaying about and help information
     * `F2` for restarting the game
     * `F3` for configuring and starting a custom game and
     * `P` for pause
