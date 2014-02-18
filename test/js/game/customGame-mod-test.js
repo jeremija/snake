@@ -157,23 +157,14 @@ define(['game/customGame-mod', 'events/events', 'knockout', 'game/config'],
             });
         });
         describe('close()', function() {
-            var unpaused;
-            function unpauseListener() {
-                unpaused = true;
-            }
             before(function() {
                 customGameMod.viewModel.show();
-                events.listen('unpause', unpauseListener);
             });
             after(function() {
-                events.unlisten('unpaused', unpauseListener);
             });
             it('should stop listening to `keydown` event', function() {
                 customGameMod.viewModel.close();
                 expect(events._listeners.keydown.length).to.be(0);
-            });
-            it('should dispatch `unpause` event', function() {
-                expect(unpaused).to.be(true);
             });
             it('should hide', function() {
                 expect(customGameMod.viewModel.visible()).to.be(false);

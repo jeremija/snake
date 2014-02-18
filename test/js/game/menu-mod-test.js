@@ -95,9 +95,26 @@ define(['game/menu-mod', 'knockout', 'events/events', 'game/config'],
                 expect(restarted).to.be(true);
             });
         });
+        describe('viewModel.about()', function() {
+            var showAboutMod = false;
+            function showAboutModListener() {
+                showAboutMod = true;
+            }
+            before(function() {
+                events.listen('show-about-mod', showAboutModListener);
+            });
+            after(function() {
+                events.unlisten('show-about-mod', showAboutModListener);
+            });
+            it('should dispatch `show-about-mod` event', function() {
+                menuMod.viewModel.about();
+                expect(showAboutMod).to.be(true);
+            });
+        });
         describe('key bindings', function() {
             var restarted = false, customGame = false, pauseToggled = false,
-            newGameOrig, customGameOrig, pauseOrig;
+            about = false,
+            newGameOrig, customGameOrig, pauseOrig, aboutOrig;
             function pauseToggleListener() {
                 pauseToggled = true;
             }
@@ -106,12 +123,16 @@ define(['game/menu-mod', 'knockout', 'events/events', 'game/config'],
                 newGameOrig = menuMod.viewModel.newGame;
                 customGameOrig = menuMod.viewModel.customGame;
                 pauseOrig = menuMod.viewModel.pause;
+                aboutOrig = menuMod.viewModel.about;
 
                 menuMod.viewModel.newGame = function() {
                     restarted = true;
                 };
                 menuMod.viewModel.customGame = function() {
                     customGame = true;
+                };
+                menuMod.viewModel.about = function() {
+                    about = true;
                 };
                 events.listen('pause-toggle', pauseToggleListener);
             });
@@ -120,6 +141,7 @@ define(['game/menu-mod', 'knockout', 'events/events', 'game/config'],
                 menuMod.viewModel.newGame = newGameOrig;
                 menuMod.viewModel.customGame = customGameOrig;
                 menuMod.viewModel.pause = pauseOrig;
+                menuMod.viewModel.about = aboutOrig;
                 events.unlisten('pause-toggle', pauseToggleListener);
             });
             it('should listen to pause key', function() {
@@ -130,15 +152,11 @@ define(['game/menu-mod', 'knockout', 'events/events', 'game/config'],
                 expect(pauseToggled).to.be(true);
             });
             it('should listen to F1 key', function() {
-                var linkClicked = false;
-                linkEl.click = function() {
-                    linkClicked = true;
-                };
                 events.dispatch('keydown', 112, {
                     keyCode: 112,
                     preventDefault: function() {}
                 })
-                expect(linkClicked).to.be(true);
+                expect(about).to.be(true);
             });
             it('should listen to F2 key', function() {
                 events.dispatch('keydown', 113, {

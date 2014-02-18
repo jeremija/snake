@@ -19,14 +19,16 @@
 	<div id="wrapper" class="hidden">
 		<div id="menu-module" class="text-center">
 			<p>
-				<button href="#" data-bind="click: newGame">[New game (F2)]</button>
-				<button href="#" data-bind="click: customGame">[Custom game (F3)]</button>
-				<button href="#" data-bind="click: pause">[Pause (P)]</button>
+				<button href="#" data-bind="click: pause" title="Pause hotkey: [P]">[Pause]</button>
+
+				<button href="#" data-bind="click: newGame" title="Restart hotkey: [F2]">[Restart]</button>
+				<button href="#" data-bind="click: customGame" title="Settings hotkey: [F3]">[Settings]</button>
+				<button href="#" data-bind="click: about" title="About hotkey: [F1]">[About]</button>
 			</p>
 		</div>
-		<form id="custom-game-module" data-bind="visible: visible">
+		<form id="custom-game-module" class="window" data-bind="visible: visible">
 			<fieldset>
-				<legend>New game</legend>
+				<legend>Game Settings</legend>
 				<label>Zoom</label>
 				<input type="number" min="2" max="30" step="1" data-bind="value: pixelMultiplier, hasFocus: focus"><br/>
 
@@ -46,10 +48,30 @@
 				</div>
 			</fieldset>
 		</form>
+		<div id="about-module" class="window" data-bind="visible: visible">
+			<fieldset>
+				<legend>About</legend>
+				<div>
+					Written by <a href="http://www.github.com/jeremija/" target="_blank">[Jerko Steiner]</a><br>
+					Visit <a href="http://www.github.com/jeremija/snake" target="_blank">[github project page]</a><br>
+					<br>
+					Usage<br>
+					* ←, →, ↑, ↓ or swipe screen<br>
+					* F1 - opens this window<br>
+					* F2 - starts a new game<br>
+					* F3 - opens game settings<br>
+					* P&nbsp; - toggles pause<br>
+					<br>
+					<div class="text-center">
+						<a href="#" data-bind="click: close">[Close]</a>
+					</div>
+				</div>
+			</fieldset>
+		</div>
 		<div id="game-module">
 			<div class="snake-area">
-	           <div class="dimmed" data-bind="visible: status() == 'paused'">Paused<br>Press P to unpause</div>
-	           <div class="dimmed" data-bind="visible: status() == 'crashed'">Game over!<br>Press F2 to restart</div>
+				<div class="dimmed" data-bind="visible: status() == 'paused'">Paused<br>Press P to unpause</div>
+				<div class="dimmed" data-bind="visible: status() == 'crashed'">Game over!<br>Press F2 to restart</div>
 				<!-- ko with: snake -->
 					<!-- ko foreach: $data.parts -->
 						<div class="snake" data-bind="coords: $data"></div>
@@ -63,7 +85,5 @@
 			<p class="status">score: <span data-bind="text: score"></span> level: <span data-bind="text: level"></span></p>
 		</div>
 	</div>
-
-	<p class="text-center"><a id="about-link" href="http://www.github.com/jeremija/snake" target="_blank">[github/jeremija/snake (F1)]</a></p>
 </body>
 </html>

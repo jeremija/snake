@@ -38,13 +38,13 @@ input[type=number] {
 	display: none;
 }
 
-#custom-game-module {
+.window {
 	position: fixed;
 	z-index: 999;
 
 	left: 50%;
 	margin-left: -140px;
-	top: 80px;
+	top: 70px;
 
 	width: 280px;
 }

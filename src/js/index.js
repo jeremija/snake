@@ -1,6 +1,6 @@
 require(['ko/index', 'events/hotkeys', 'game/main', 'game/customGame-mod',
-    'game/menu-mod'],
-    function(bindings, hotkeys, main, customGameModule, menuModule) {
+    'game/menu-mod', 'game/about-mod'],
+    function(bindings, hotkeys, main, customGameModule, menuMod, aboutMod) {
 
     window.main = main;
 
@@ -12,7 +12,9 @@ require(['ko/index', 'events/hotkeys', 'game/main', 'game/customGame-mod',
     main.start();
 
     customGameModule.init(document.getElementById('custom-game-module'));
-    menuModule.init(document.getElementById('menu-module'));
+    aboutMod.init(document.getElementById('about-module'));
+
+    menuMod.init(document.getElementById('menu-module'));
 
     var wrapper = document.getElementById('wrapper');
     wrapper.className = wrapper.className.replace(/\bhidden\b/, '');

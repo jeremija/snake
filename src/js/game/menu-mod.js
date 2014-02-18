@@ -12,6 +12,9 @@ define(['events/events', 'knockout', 'game/config'],
             },
             pause: function() {
                 events.dispatch('pause-toggle');
+            },
+            about: function() {
+                events.dispatch('show-about-mod');
             }
         },
         init: function(element) {
@@ -35,8 +38,9 @@ define(['events/events', 'knockout', 'game/config'],
             // F1
             112: function(event) {
                 event.preventDefault();
-                events.dispatch('pause');
-                document.getElementById('about-link').click();
+                this.viewModel.about();
+                // events.dispatch('pause');
+                // document.getElementById('about-link').click();
             },
             // F2
             113: function(event) {

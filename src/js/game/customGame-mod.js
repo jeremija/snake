@@ -39,7 +39,7 @@ define(['game/config', 'knockout', 'events/events'],
             close: function() {
                 exports.viewModel.visible(false);
                 events.unlisten('keydown', exports.onkeydown);
-                events.dispatch('unpause');
+                // events.dispatch('unpause');
             },
             save: function() {
                 var vm = exports.viewModel;
