@@ -73,6 +73,18 @@ define(['knockout', 'game/about-mod', 'events/events'],
             it('should update viewModel.visible() to true', function() {
                 expect(aboutMod.viewModel.visible()).to.be(true);
             });
+            it('should start listening to `hide-modules` event', function() {
+                expect(events._listeners['hide-modules'].length).to.be(1);
+            });
+        });
+        describe('event `hide-modules`', function() {
+            before(function() {
+                aboutMod.viewModel.visible(true);
+            });
+            it('should set viewModel.visible() to false', function() {
+                events.dispatch('hide-modules');
+                expect(aboutMod.viewModel.visible()).to.be(false);
+            });
         });
         describe('event `keydown` 27 (escape)', function() {
             before(function() {
@@ -93,6 +105,9 @@ define(['knockout', 'game/about-mod', 'events/events'],
             it('should update viewModel.visible() to false', function() {
                 aboutMod.viewModel.close();
                 expect(aboutMod.viewModel.visible()).to.be(false);
+            });
+            it('should stop listening to `hide-modules` event', function() {
+                expect(events._listeners['hide-modules'].length).to.be(0);
             });
         });
     });

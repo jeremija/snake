@@ -13,6 +13,7 @@
 	<script type="text/javascript" data-main="js/index.js" src="bower/requirejs/require.js"></script>
 	<!-- SCRIPT END -->
 
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -70,8 +71,8 @@
 		</div>
 		<div id="game-module">
 			<div class="snake-area">
-				<div class="dimmed" data-bind="visible: status() == 'paused'">Paused<br>Press P to unpause</div>
-				<div class="dimmed" data-bind="visible: status() == 'crashed'">Game over!<br>Press F2 to restart</div>
+				<div class="dimmed" data-bind="visible: status() == 'paused'">Paused<br>Press [P] to unpause</div>
+				<div class="dimmed" data-bind="visible: status() == 'crashed'">Game over!<br>Press [F2] to restart</div>
 				<!-- ko with: snake -->
 					<!-- ko foreach: $data.parts -->
 						<div class="snake" data-bind="coords: $data"></div>

@@ -35,10 +35,10 @@ define(['game/config', 'knockout', 'events/events'],
                 vm.focus(true);
 
                 events.listen('keydown', exports.onkeydown, exports);
+                events.listen('hide-modules', exports._hide, exports);
             },
             close: function() {
-                exports.viewModel.visible(false);
-                events.unlisten('keydown', exports.onkeydown);
+                exports._hide();
                 // events.dispatch('unpause');
             },
             save: function() {
@@ -55,8 +55,9 @@ define(['game/config', 'knockout', 'events/events'],
                 config.snakeParams.position.y =
                     Math.round(config.snakeParams.area.y / 2);
 
-                exports.viewModel.visible(false);
-                events.unlisten('keydown', exports.onkeydown);
+                // exports.viewModel.visible(false);
+                // events.unlisten('keydown', exports.onkeydown);
+                exports._hide();
                 events.dispatch('restart');
             },
         },
@@ -72,6 +73,11 @@ define(['game/config', 'knockout', 'events/events'],
                 event.preventDefault();
                 this.viewModel.close();
             }
+        },
+        _hide: function() {
+            this.viewModel.visible(false);
+            events.unlisten('hide-modules', this._hide);
+            events.unlisten('keydown', this.onkeydown);
         }
     };
 

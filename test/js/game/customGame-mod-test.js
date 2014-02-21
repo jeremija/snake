@@ -85,8 +85,11 @@ define(['game/customGame-mod', 'events/events', 'knockout', 'game/config'],
                 expect(vm.startLevel()).to.be(config.level.startLevel);
                 expect(vm.startLength()).to.be(config.level.startLength);
             });
-            it('should start listening to keydown event', function() {
+            it('should start listening to `keydown` event', function() {
                 expect(events._listeners.keydown.length).to.be(1);
+            });
+            it('should start listening to `hide-modules` event', function() {
+                expect(events._listeners['hide-modules'].length).to.be(1);
             });
             it('should dispatch pause event', function() {
                 expect(paused).to.be(true);
@@ -113,13 +116,23 @@ define(['game/customGame-mod', 'events/events', 'knockout', 'game/config'],
                 expect(closeCalled).to.be(true);
             });
         });
-        describe('save()', function() {
+        describe('event `hide-modules`', function() {
+            before(function() {
+                customGameMod.viewModel.visible(true);
+            });
+            it('should set viewModel.visible() to false', function() {
+                events.dispatch('hide-modules');
+                expect(customGameMod.viewModel.visible()).to.be(false);
+            });
+        });
+        describe('viewModel.save()', function() {
             var restarted = false;
             function restartListener() {
                 restarted = true;
             };
             before(function() {
                 events.listen('restart', restartListener);
+                customGameMod.viewModel.show();
             });
             after(function() {
                 events.unlisten('restart', restartListener);
@@ -155,8 +168,11 @@ define(['game/customGame-mod', 'events/events', 'knockout', 'game/config'],
             it('should stop listening to `keydown`', function() {
                 expect(events._listeners.keydown.length).to.be(0);
             });
+            it('should stop listening to `hide-modules` event', function() {
+                expect(events._listeners['hide-modules'].length).to.be(0);
+            });
         });
-        describe('close()', function() {
+        describe('viewModel.close()', function() {
             before(function() {
                 customGameMod.viewModel.show();
             });
@@ -168,6 +184,9 @@ define(['game/customGame-mod', 'events/events', 'knockout', 'game/config'],
             });
             it('should hide', function() {
                 expect(customGameMod.viewModel.visible()).to.be(false);
+            });
+            it('should stop listening to `hide-modules` event', function() {
+                expect(events._listeners['hide-modules'].length).to.be(0);
             });
         });
     });

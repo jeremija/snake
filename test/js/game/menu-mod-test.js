@@ -56,27 +56,27 @@ define(['game/menu-mod', 'knockout', 'events/events', 'game/config'],
             });
         });
         describe('viewModel.customGame()', function() {
-            var paused = false, customGame = false;
-            function pauseListener() {
-                paused = true;
-            }
+            var customGame = false, hideModules = false;
             function customGameListener() {
                 customGame = true;
             }
+            function hideModulesListener() {
+                hideModules = true;
+            }
             before(function() {
-                events.listen('pause', pauseListener);
                 events.listen('show-custom-game-module', customGameListener);
+                events.listen('hide-modules', hideModulesListener);
             });
             after(function() {
-                events.unlisten('pause', pauseListener);
                 events.unlisten('show-custom-game-module', customGameListener);
-            });
-            it('should dispatch `pause` event', function() {
-                menuMod.viewModel.customGame();
-                expect(paused).to.be(true);
+                events.unlisten('hide-modules', hideModulesListener);
             });
             it('should dispatch `show-custom-game-module` event', function() {
+                menuMod.viewModel.customGame();
                 expect(customGame).to.be(true);
+            });
+            it('should dispatch `hide-modules` event', function() {
+                expect(hideModules).to.be(true);
             });
         });
         describe('viewModel.newGame()', function() {
@@ -96,19 +96,27 @@ define(['game/menu-mod', 'knockout', 'events/events', 'game/config'],
             });
         });
         describe('viewModel.about()', function() {
-            var showAboutMod = false;
+            var showAboutMod = false, hideModules = false;
             function showAboutModListener() {
                 showAboutMod = true;
             }
+            function hideModulesListener() {
+                hideModules = true;
+            }
             before(function() {
                 events.listen('show-about-mod', showAboutModListener);
+                events.listen('hide-modules', hideModulesListener);
             });
             after(function() {
                 events.unlisten('show-about-mod', showAboutModListener);
+                events.listen('hide-modules', hideModulesListener);
             });
             it('should dispatch `show-about-mod` event', function() {
                 menuMod.viewModel.about();
                 expect(showAboutMod).to.be(true);
+            });
+            it('should dispatch `hide-modules` event', function() {
+                expect(hideModules).to.be(true);
             });
         });
         describe('key bindings', function() {

@@ -8,7 +8,7 @@ define(['knockout', 'events/events'], function(ko, events) {
         viewModel: {
             visible: ko.observable(false),
             close: function() {
-                exports.viewModel.visible(false);
+                exports._hide();
             }
         },
         init: function(element) {
@@ -24,7 +24,12 @@ define(['knockout', 'events/events'], function(ko, events) {
         },
         _showHandler: function() {
             events.dispatch('pause');
+            events.listen('hide-modules', this._hide, this);
             this.viewModel.visible(true);
+        },
+        _hide: function() {
+            this.viewModel.visible(false);
+            events.unlisten('hide-modules', this._hide);
         }
     };
 

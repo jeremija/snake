@@ -7,13 +7,14 @@ define(['events/events', 'knockout', 'game/config'],
                 events.dispatch('restart');
             },
             customGame: function() {
-                events.dispatch('pause');
+                events.dispatch('hide-modules');
                 events.dispatch('show-custom-game-module');
             },
             pause: function() {
                 events.dispatch('pause-toggle');
             },
             about: function() {
+                events.dispatch('hide-modules');
                 events.dispatch('show-about-mod');
             }
         },
@@ -39,8 +40,6 @@ define(['events/events', 'knockout', 'game/config'],
             112: function(event) {
                 event.preventDefault();
                 this.viewModel.about();
-                // events.dispatch('pause');
-                // document.getElementById('about-link').click();
             },
             // F2
             113: function(event) {
