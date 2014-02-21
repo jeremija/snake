@@ -53,6 +53,7 @@ build:
 
 	@echo copying index.html
 	@cp src/index.html dist/index.src.html
+	@cp src/favicon* dist/
 
 	@echo replacing index.html \<script\> tags
 	@sed -e '/SCRIPT START/,/SCRIPT END/c\	<script type="text/javascript" src="js/snake.js"></script>' \
