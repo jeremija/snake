@@ -5,7 +5,7 @@ Classic snake game written in JavaScript. Uses [knockout.js](http://knockoutjs.c
 
 ![snake screencast](http://i.imgur.com/89WuGNq.gif)
 
-Click [here to try it](http://steinerize.com/snake). Use arrow keys to move if you are on a desktop computer, or swipe gestures if you are on a mobile device.
+Click [here to try it](http://steiner.website/snake). Use arrow keys to move if you are on a desktop computer, or swipe gestures if you are on a mobile device.
 
 Features
 --------
